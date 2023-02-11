@@ -1,0 +1,25 @@
+<body>
+  <div id="gameContainer">
+    <div></div>
+    <div id="boardContainer">
+      <div id="board">
+        <div
+          *ngFor="let space of spaces"
+          id="{{ space.id }}"
+          class="{{ space.isPlayable ? 'space' : 'whiteSpace' }}"
+        >
+          <div 
+          draggable="true"
+          *ngIf="space.isPlayable "
+          class="blackPiece"
+          ></div>
+          <div 
+          draggable="true"
+          *ngIf="space.isPlayable"
+          class="redPiece"></div>
+        </div>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</body>
