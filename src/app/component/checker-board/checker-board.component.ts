@@ -53,12 +53,12 @@ export class CheckerBoardComponent implements OnInit {
   addPlayerPieces() {
     for (let b = 0; b < 12; b++) {
       this.player1Pieces.push({ id: b, color: "black", isSelected: false, playerId:1});
-      this.spaces[this.initialBlackPlacementArray[b]].occupyingPiece = b;
+      this.spaces[this.initialBlackPlacementArray[b]].occupyingPiece = { id: b, color: "black", isSelected: false, playerId:1};
     }
 
     for (let r = 0; r < 12; r++) {
       this.player2Pieces.push({ id: r, color: "red", isSelected: false, playerId:2 });
-      this.spaces[this.initialRedPlacementArray[r]].occupyingPiece = r;
+      this.spaces[this.initialRedPlacementArray[r]].occupyingPiece = { id: r, color: "red", isSelected: false, playerId:2 };
     }
     console.log(this.spaces);
     console.log(this.player2Pieces,this.player1Pieces)

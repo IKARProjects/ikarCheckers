@@ -1,5 +1,7 @@
+import { Piece } from "./piece.model";
+
 export interface Space{
     isPlayable: boolean;
-    occupyingPiece? :number
+    occupyingPiece? :Piece
     id: number;
 }

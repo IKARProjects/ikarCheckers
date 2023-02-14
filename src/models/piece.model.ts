@@ -3,4 +3,5 @@ export interface Piece{
     color: string;
     id:number;
     playerId:number;
+    
 }

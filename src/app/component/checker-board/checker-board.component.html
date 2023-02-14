@@ -10,12 +10,12 @@
         >
           <div 
           draggable="true"
-          *ngIf="space.isPlayable "
+          *ngIf="space.isPlayable && space.occupyingPiece && space.occupyingPiece.playerId===1 "
           class="blackPiece"
           ></div>
           <div 
           draggable="true"
-          *ngIf="space.isPlayable"
+          *ngIf="space.isPlayable && space.occupyingPiece && space.occupyingPiece.playerId===2"
           class="redPiece"></div>
         </div>
       </div>
