@@ -4,4 +4,5 @@ export interface Piece{
     id:number;
     playerId:number;
     
+    
 }

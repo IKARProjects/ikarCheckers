@@ -18,6 +18,9 @@ export class CheckerBoardComponent implements OnInit {
     41, 43, 45, 47, 48, 50, 52, 54, 57, 59, 61, 63,
   ];
 
+  availableSpace1: Space | undefined;
+  availableSpace2: Space | undefined;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -34,7 +37,7 @@ export class CheckerBoardComponent implements OnInit {
         let space = { isPlayable: false, id: i };
         this.spaces.push(space);
       } else {
-        let space = { isPlayable: true, id:i };
+        let space = { isPlayable: true, id: i };
         this.spaces.push(space);
       }
     }
@@ -44,7 +47,7 @@ export class CheckerBoardComponent implements OnInit {
         let space = { isPlayable: true, id: i };
         this.spaces.push(space);
       } else {
-        let space = { isPlayable: false, id: i};
+        let space = { isPlayable: false, id: i };
         this.spaces.push(space);
       }
     }
@@ -52,15 +55,70 @@ export class CheckerBoardComponent implements OnInit {
 
   addPlayerPieces() {
     for (let b = 0; b < 12; b++) {
-      this.player1Pieces.push({ id: b, color: "black", isSelected: false, playerId:1});
-      this.spaces[this.initialBlackPlacementArray[b]].occupyingPiece = { id: b, color: "black", isSelected: false, playerId:1};
+      this.player1Pieces.push({
+        id: b,
+        color: "black",
+        isSelected: false,
+        playerId: 1,
+      });
+      this.spaces[this.initialBlackPlacementArray[b]].occupyingPiece = {
+        id: b,
+        color: "black",
+        isSelected: false,
+        playerId: 1,
+      };
     }
 
     for (let r = 0; r < 12; r++) {
-      this.player2Pieces.push({ id: r, color: "red", isSelected: false, playerId:2 });
-      this.spaces[this.initialRedPlacementArray[r]].occupyingPiece = { id: r, color: "red", isSelected: false, playerId:2 };
+      this.player2Pieces.push({
+        id: r,
+        color: "red",
+        isSelected: false,
+        playerId: 2,
+      });
+      this.spaces[this.initialRedPlacementArray[r]].occupyingPiece = {
+        id: r,
+        color: "red",
+        isSelected: false,
+        playerId: 2,
+      };
     }
     console.log(this.spaces);
-    console.log(this.player2Pieces,this.player1Pieces)
+    console.log(this.player2Pieces, this.player1Pieces);
   }
+
+  selectPiece(selectedPiece: Piece | undefined, spaceId: number) {
+    if (!selectedPiece) {
+      return;
+    } else {
+      this.spaces.forEach((s: Space) => {
+        if (s.occupyingPiece) {
+          s.occupyingPiece.isSelected = false;
+        }
+      });
+      selectedPiece.isSelected = true;
+      if (selectedPiece.playerId === 2) {
+        this.availableSpace1 = this.spaces.find(
+          (s: Space) => s.id === spaceId + 7
+        );
+        this.availableSpace2 = this.spaces.find(
+          (s: Space) => s.id === spaceId + 9
+        );
+      } else {
+        this.availableSpace1 = this.spaces.find(
+          (s: Space) => s.id === spaceId - 7
+        );
+        this.availableSpace2 = this.spaces.find(
+          (s: Space) => s.id === spaceId - 9
+        );
+      }
+      console.log(this.availableSpace1, this.availableSpace2);
+
+      console.log(selectedPiece);
+    }
+  }
+  // getAvailableSpaceClass(spaceId:number){
+  //   const selcetedPieceSpace=this.spaces.find((s:Space)=>s.occupyingPiece?.isSelected)
+
+  // }
 }

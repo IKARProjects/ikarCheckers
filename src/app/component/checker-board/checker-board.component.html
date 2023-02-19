@@ -8,15 +8,36 @@
           id="{{ space.id }}"
           class="{{ space.isPlayable ? 'space' : 'whiteSpace' }}"
         >
-          <div 
-          draggable="true"
-          *ngIf="space.isPlayable && space.occupyingPiece && space.occupyingPiece.playerId===1 "
-          class="blackPiece"
+          <div
+            *ngIf="!space.occupyingPiece"
+            (click)="selectPiece(space.occupyingPiece,space.id)"
+            [ngClass]="availableSpace1?.id===space.id||availableSpace2?.id===space.id?'availableSpace':''"
           ></div>
-          <div 
-          draggable="true"
-          *ngIf="space.isPlayable && space.occupyingPiece && space.occupyingPiece.playerId===2"
-          class="redPiece"></div>
+          <div
+            (click)="selectPiece(space.occupyingPiece,space.id)"
+            *ngIf="
+              space.isPlayable &&
+              space.occupyingPiece &&
+              space.occupyingPiece.playerId === 1
+            "
+            class="blackPiece"
+            [ngClass]="space.occupyingPiece?.isSelected ? 'selected' : ''"
+          >
+            Black
+          </div>
+
+          <div
+            (click)="selectPiece(space.occupyingPiece,space.id)"
+            *ngIf="
+              space.isPlayable &&
+              space.occupyingPiece &&
+              space.occupyingPiece.playerId === 2
+            "
+            class="redPiece"
+            [ngClass]="space.occupyingPiece?.isSelected ? 'selected' : ''"
+          >
+            Red
+          </div>
         </div>
       </div>
     </div>
