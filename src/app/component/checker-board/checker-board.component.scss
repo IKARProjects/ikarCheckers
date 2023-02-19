@@ -11,7 +11,8 @@ body {
   }
   #gameContainer {
     position: relative;
-    background-image:url('../../../assets/images/woodgrain\ \ 5.jpg');
+    background-color: burlywood;
+    // background-image:url('../../../assets/images/woodgrain\5.jpg');
     border: 5px solid rgba(219, 191, 12, 0.326);
     height: 850px;
     width:850px;
@@ -21,7 +22,8 @@ body {
     justify-content: center;
   }
   #boardContainer {
-    background-image:url('../../../assets/images/woodgrain\ 1.jpg');
+    background-color: brown;
+    // background-image:url('../../../assets/images/woodgrain\1.jpg');
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,13 +48,15 @@ body {
     justify-content: center;
     height: 60px;
     width: 60px;
-    background-image:url('../../../assets/images/woodgrain\ 1.jpg');
+    background-color: brown;
+    // background-image:url('../../../assets/images/woodgrain\1.jpg');
     border: 1px solid rgba(219, 191, 12, 0.326);
   }
   .whiteSpace {
       height: 60px;
       width: 60px;
-      background-image:url('../../../assets/images/woodgrain\ 2.jpg');
+      background-color: white;
+      // background-image:url('../../../assets/images/woodgrain');
       border: 1px solid rgba(219, 191, 12, 0.326);
     }
     

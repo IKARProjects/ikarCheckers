@@ -104,6 +104,13 @@ export class CheckerBoardComponent implements OnInit {
         this.availableSpace2 = this.spaces.find(
           (s: Space) => s.id === spaceId + 9
         );
+        // if(this.availableSpace1?.isPlayable===false){
+        //   return;
+
+        // }
+
+       
+        
       } else {
         this.availableSpace1 = this.spaces.find(
           (s: Space) => s.id === spaceId - 7
@@ -112,6 +119,9 @@ export class CheckerBoardComponent implements OnInit {
           (s: Space) => s.id === spaceId - 9
         );
       }
+
+     
+
       console.log(this.availableSpace1, this.availableSpace2);
 
       console.log(selectedPiece);
