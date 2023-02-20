@@ -1,102 +1,110 @@
-
-
-
-
 body {
   overflow: hidden;
   background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #gameContainer {
-    position: relative;
-    background-color: burlywood;
-    // background-image:url('../../../assets/images/woodgrain\5.jpg');
-    border: 5px solid rgba(219, 191, 12, 0.326);
-    height: 850px;
-    width:850px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #boardContainer {
-    background-color: brown;
-    // background-image:url('../../../assets/images/woodgrain\1.jpg');
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 540px;
-    width: 540px;
-    border: 4px solid rgba(219, 191, 12, 0.326);
-     border-radius:3px ;
-  }
-  #board {
-    background-color: white;
-    height: 495px;
-    width: 495px;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-  }
-  .space {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    width: 60px;
-    background-color: brown;
-    // background-image:url('../../../assets/images/woodgrain\1.jpg');
-    border: 1px solid rgba(219, 191, 12, 0.326);
-  }
-  .whiteSpace {
-      height: 60px;
-      width: 60px;
-      background-color: white;
-      // background-image:url('../../../assets/images/woodgrain');
-      border: 1px solid rgba(219, 191, 12, 0.326);
-    }
-    
-    .redPiece{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgb(125, 7, 7);
-      border: 3px solid red;
-      background-color: rgb(197, 51, 51);
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-    }   
-     .blackPiece{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: black;
-      border: 3px solid black;
-      background-color:rgb(54, 52, 52);
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#gameContainer {
+  position: relative;
+  background-color: burlywood;
+  // background-image:url('../../../assets/images/woodgrain\5.jpg');
+  border: 5px solid rgba(219, 191, 12, 0.326);
+  height: 850px;
+  width: 850px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#boardContainer {
+  background-color: brown;
+  // background-image:url('../../../assets/images/woodgrain\1.jpg');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 540px;
+  width: 540px;
+  border: 4px solid rgba(219, 191, 12, 0.326);
+  border-radius: 3px;
+}
+#board {
+  background-color: white;
+  height: 495px;
+  width: 495px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+.space {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 60px;
+  background-color: brown;
+  // background-image:url('../../../assets/images/woodgrain\1.jpg');
+  border: 1px solid rgba(219, 191, 12, 0.326);
+}
+.whiteSpace {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  // background-image:url('../../../assets/images/woodgrain');
+  border: 1px solid rgba(219, 191, 12, 0.326);
+}
 
-    .selected{
-      border: 3px solid white;
-      background-color: yellow;
-      color: white;
-    }
+.redPiece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(125, 7, 7);
+  border: 3px solid red;
+  background-color: rgb(197, 51, 51);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.blackPiece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  border: 3px solid black;
+  background-color: rgb(54, 52, 52);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
 
-    .availableSpace{
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      border: 3px solid yellow;
-      background-color:rgb(199, 107, 107);
-      height: 40px;
-      width: 40px;
-    }
+.selected {
+  border: 3px solid white;
+  background-color: yellow;
+  color: white;
+  animation: selectedEffect 500ms alternate-reverse infinite;
+}
+@keyframes selectedEffect {
+  from {
+    background-color: #fff;
+    box-shadow: 0 0 30px #e60073;
+  }
+  to {
+    background-color: #e60073;
+    box-shadow: 0 0 20px #fff;
+  }
+}
+
+.availableSpace {
+  border-radius: 50%;
+  box-shadow: 0 0 20px blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 4px solid white;
+  background-color: gray;
+  height: 40px;
+  width: 40px;
+}
