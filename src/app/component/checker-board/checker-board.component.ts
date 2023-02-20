@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Space } from "src/models/space.model";
 import { Piece } from "src/models/piece.model";
 
-
 @Component({
   selector: "app-checker-board",
   templateUrl: "./checker-board.component.html",
@@ -21,7 +20,7 @@ export class CheckerBoardComponent implements OnInit {
 
   availableSpace1: Space | undefined;
   availableSpace2: Space | undefined;
-
+  currentPlayerIdTurn: number = 1;
   constructor() {}
 
   ngOnInit(): void {
@@ -101,15 +100,19 @@ export class CheckerBoardComponent implements OnInit {
     return this.spaces.find((s: Space) => s.occupyingPiece?.isSelected);
   }
   moveSelectedPiece(selectedPiece: Piece | undefined, spaceId: number) {
+    const currentSelcetedPieceSpace = this.findSelectedPiece();
+   
+    
     if (!selectedPiece) {
-      const currentSelcetedPieceSpace = this.findSelectedPiece();
+     
       if (!currentSelcetedPieceSpace) {
         return;
       }
+     
 
       this.movePiece(this.availableSpace1!, currentSelcetedPieceSpace, spaceId);
       this.movePiece(this.availableSpace2!, currentSelcetedPieceSpace, spaceId);
-
+      this.currentPlayerIdTurn=this.currentPlayerIdTurn===1?2:1;
       this.availableSpace2 = undefined;
       this.availableSpace1 = undefined;
 
@@ -117,6 +120,9 @@ export class CheckerBoardComponent implements OnInit {
 
       return;
     } else {
+      if(selectedPiece.playerId!==this.currentPlayerIdTurn){
+        return;
+      }
       this.spaces.forEach((s: Space) => {
         if (s.occupyingPiece) {
           s.occupyingPiece.isSelected = false;
@@ -132,7 +138,9 @@ export class CheckerBoardComponent implements OnInit {
         this.getAvailableSpace(spaceId, "up");
       }
     }
+   
   }
+
 
   getAvailableSpace(spaceId: number, direction: string) {
     this.availableSpace1 = this.spaces.find(
