@@ -11,7 +11,7 @@
           <div
             *ngIf="!space.occupyingPiece"
             (click)="selectPiece(space.occupyingPiece,space.id)"
-            [ngClass]="availableSpace1?.id===space.id||availableSpace2?.id===space.id?'availableSpace':''"
+            [ngClass]="(availableSpace1?.id===space.id && availableSpace1?.isPlayable)||(availableSpace2?.id===space.id && availableSpace2?.isPlayable)?'availableSpace':''"
           ></div>
           <div
             (click)="selectPiece(space.occupyingPiece,space.id)"

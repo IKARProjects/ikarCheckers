@@ -89,6 +89,32 @@ export class CheckerBoardComponent implements OnInit {
 
   selectPiece(selectedPiece: Piece | undefined, spaceId: number) {
     if (!selectedPiece) {
+      const currentSelcetedPieceSpace = this.spaces.find(
+        (s: Space) => s.occupyingPiece?.isSelected
+      );
+
+      console.log(currentSelcetedPieceSpace);
+      if (!currentSelcetedPieceSpace) {
+        return;
+      }
+
+      if (this.availableSpace1?.id === spaceId) {
+        this.availableSpace1.occupyingPiece =
+          currentSelcetedPieceSpace.occupyingPiece;
+      this.availableSpace2=undefined
+
+
+      }
+
+      if (this.availableSpace2?.id === spaceId) {
+        this.availableSpace2.occupyingPiece =
+          currentSelcetedPieceSpace.occupyingPiece;
+          this.availableSpace1=undefined
+
+      }
+      currentSelcetedPieceSpace.occupyingPiece = undefined;
+
+
       return;
     } else {
       this.spaces.forEach((s: Space) => {
@@ -104,14 +130,9 @@ export class CheckerBoardComponent implements OnInit {
         this.availableSpace2 = this.spaces.find(
           (s: Space) => s.id === spaceId + 9
         );
-        // if(this.availableSpace1?.isPlayable===false){
-        //   return;
+      }
 
-        // }
-
-       
-        
-      } else {
+      if (selectedPiece.playerId === 1) {
         this.availableSpace1 = this.spaces.find(
           (s: Space) => s.id === spaceId - 7
         );
@@ -119,8 +140,6 @@ export class CheckerBoardComponent implements OnInit {
           (s: Space) => s.id === spaceId - 9
         );
       }
-
-     
 
       console.log(this.availableSpace1, this.availableSpace2);
 
