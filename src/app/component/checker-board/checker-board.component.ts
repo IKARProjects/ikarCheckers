@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Space } from "src/models/space.model";
 import { Piece } from "src/models/piece.model";
 
+
 @Component({
   selector: "app-checker-board",
   templateUrl: "./checker-board.component.html",
@@ -32,88 +33,87 @@ export class CheckerBoardComponent implements OnInit {
   }
 
   addRowPairs(startingNumber: number) {
-    for (let i = startingNumber; i < startingNumber + 8; i++) {
-      if (i % 2) {
-        let space = { isPlayable: false, id: i };
-        this.spaces.push(space);
-      } else {
-        let space = { isPlayable: true, id: i };
-        this.spaces.push(space);
+    this.createBoardRow(startingNumber, false);
+    this.createBoardRow(startingNumber, true);
+  }
+
+  createBoardRow(startingNumber: number, shifted: boolean) {
+    if (!shifted) {
+      for (let i = startingNumber; i < startingNumber + 8; i++) {
+        if (i % 2) {
+          let space = { isPlayable: false, id: i };
+          this.spaces.push(space);
+        } else {
+          let space = { isPlayable: true, id: i };
+          this.spaces.push(space);
+        }
+      }
+    } else {
+      for (let i = startingNumber + 8; i < startingNumber + 16; i++) {
+        if (i % 2) {
+          let space = { isPlayable: true, id: i };
+          this.spaces.push(space);
+        } else {
+          let space = { isPlayable: false, id: i };
+          this.spaces.push(space);
+        }
       }
     }
+  }
 
-    for (let i = startingNumber + 8; i < startingNumber + 16; i++) {
-      if (i % 2) {
-        let space = { isPlayable: true, id: i };
-        this.spaces.push(space);
-      } else {
-        let space = { isPlayable: false, id: i };
-        this.spaces.push(space);
-      }
+  addPlayerPiece(
+    pieces: Piece[],
+    color: string,
+    playerId: number,
+    initialPlacementArray: number[]
+  ) {
+    for (let p = 0; p < 12; p++) {
+      pieces.push({
+        id: p,
+        color: color,
+        isSelected: false,
+        playerId: playerId,
+      });
+      this.spaces[initialPlacementArray[p]].occupyingPiece = {
+        id: p,
+        color: color,
+        isSelected: false,
+        playerId: playerId,
+      };
     }
   }
 
   addPlayerPieces() {
-    for (let b = 0; b < 12; b++) {
-      this.player1Pieces.push({
-        id: b,
-        color: "black",
-        isSelected: false,
-        playerId: 1,
-      });
-      this.spaces[this.initialBlackPlacementArray[b]].occupyingPiece = {
-        id: b,
-        color: "black",
-        isSelected: false,
-        playerId: 1,
-      };
-    }
-
-    for (let r = 0; r < 12; r++) {
-      this.player2Pieces.push({
-        id: r,
-        color: "red",
-        isSelected: false,
-        playerId: 2,
-      });
-      this.spaces[this.initialRedPlacementArray[r]].occupyingPiece = {
-        id: r,
-        color: "red",
-        isSelected: false,
-        playerId: 2,
-      };
-    }
-    console.log(this.spaces);
-    console.log(this.player2Pieces, this.player1Pieces);
+    this.addPlayerPiece(
+      this.player1Pieces,
+      "black",
+      1,
+      this.initialBlackPlacementArray
+    );
+    this.addPlayerPiece(
+      this.player2Pieces,
+      "red",
+      2,
+      this.initialRedPlacementArray
+    );
   }
-
+  findSelectedPiece(): Space | undefined {
+    return this.spaces.find((s: Space) => s.occupyingPiece?.isSelected);
+  }
   selectPiece(selectedPiece: Piece | undefined, spaceId: number) {
     if (!selectedPiece) {
-      const currentSelcetedPieceSpace = this.spaces.find(
-        (s: Space) => s.occupyingPiece?.isSelected
-      );
-
-      console.log(currentSelcetedPieceSpace);
+      const currentSelcetedPieceSpace = this.findSelectedPiece();
       if (!currentSelcetedPieceSpace) {
         return;
       }
 
-      if (this.availableSpace1?.id === spaceId) {
-        this.availableSpace1.occupyingPiece =
-          currentSelcetedPieceSpace.occupyingPiece;
-      this.availableSpace2=undefined
+      this.movePiece(this.availableSpace1!, currentSelcetedPieceSpace, spaceId);
+      this.movePiece(this.availableSpace2!, currentSelcetedPieceSpace, spaceId);
 
+      this.availableSpace2 = undefined;
+      this.availableSpace1 = undefined;
 
-      }
-
-      if (this.availableSpace2?.id === spaceId) {
-        this.availableSpace2.occupyingPiece =
-          currentSelcetedPieceSpace.occupyingPiece;
-          this.availableSpace1=undefined
-
-      }
       currentSelcetedPieceSpace.occupyingPiece = undefined;
-
 
       return;
     } else {
@@ -123,31 +123,33 @@ export class CheckerBoardComponent implements OnInit {
         }
       });
       selectedPiece.isSelected = true;
+
       if (selectedPiece.playerId === 2) {
-        this.availableSpace1 = this.spaces.find(
-          (s: Space) => s.id === spaceId + 7
-        );
-        this.availableSpace2 = this.spaces.find(
-          (s: Space) => s.id === spaceId + 9
-        );
+        this.getAvailableSpace(spaceId, "down");
       }
 
       if (selectedPiece.playerId === 1) {
-        this.availableSpace1 = this.spaces.find(
-          (s: Space) => s.id === spaceId - 7
-        );
-        this.availableSpace2 = this.spaces.find(
-          (s: Space) => s.id === spaceId - 9
-        );
+        this.getAvailableSpace(spaceId, "up");
       }
-
-      console.log(this.availableSpace1, this.availableSpace2);
-
-      console.log(selectedPiece);
     }
   }
-  // getAvailableSpaceClass(spaceId:number){
-  //   const selcetedPieceSpace=this.spaces.find((s:Space)=>s.occupyingPiece?.isSelected)
 
-  // }
+  getAvailableSpace(spaceId: number, direction: string) {
+    this.availableSpace1 = this.spaces.find(
+      (s: Space) => s.id === (direction === "down" ? spaceId + 7 : spaceId - 7)
+    );
+    this.availableSpace2 = this.spaces.find(
+      (s: Space) => s.id === (direction === "down" ? spaceId + 9 : spaceId - 9)
+    );
+  }
+
+  movePiece(
+    availableSpace: Space,
+    currentSelcetedPieceSpace: Space,
+    spaceId: number
+  ) {
+    if (availableSpace?.id === spaceId) {
+      availableSpace.occupyingPiece = currentSelcetedPieceSpace.occupyingPiece;
+    }
+  }
 }
