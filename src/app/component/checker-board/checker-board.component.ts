@@ -100,7 +100,7 @@ export class CheckerBoardComponent implements OnInit {
   findSelectedPiece(): Space | undefined {
     return this.spaces.find((s: Space) => s.occupyingPiece?.isSelected);
   }
-  selectPiece(selectedPiece: Piece | undefined, spaceId: number) {
+  moveSelectedPiece(selectedPiece: Piece | undefined, spaceId: number) {
     if (!selectedPiece) {
       const currentSelcetedPieceSpace = this.findSelectedPiece();
       if (!currentSelcetedPieceSpace) {
