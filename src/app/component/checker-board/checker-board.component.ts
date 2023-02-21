@@ -101,18 +101,15 @@ export class CheckerBoardComponent implements OnInit {
   }
   moveSelectedPiece(selectedPiece: Piece | undefined, spaceId: number) {
     const currentSelcetedPieceSpace = this.findSelectedPiece();
-   
-    
+
     if (!selectedPiece) {
-     
       if (!currentSelcetedPieceSpace) {
         return;
       }
-     
 
       this.movePiece(this.availableSpace1!, currentSelcetedPieceSpace, spaceId);
       this.movePiece(this.availableSpace2!, currentSelcetedPieceSpace, spaceId);
-      this.currentPlayerIdTurn=this.currentPlayerIdTurn===1?2:1;
+      this.currentPlayerIdTurn = this.currentPlayerIdTurn === 1 ? 2 : 1;
       this.availableSpace2 = undefined;
       this.availableSpace1 = undefined;
 
@@ -120,7 +117,7 @@ export class CheckerBoardComponent implements OnInit {
 
       return;
     } else {
-      if(selectedPiece.playerId!==this.currentPlayerIdTurn){
+      if (selectedPiece.playerId !== this.currentPlayerIdTurn) {
         return;
       }
       this.spaces.forEach((s: Space) => {
@@ -138,17 +135,32 @@ export class CheckerBoardComponent implements OnInit {
         this.getAvailableSpace(spaceId, "up");
       }
     }
-   
   }
 
-
   getAvailableSpace(spaceId: number, direction: string) {
-    this.availableSpace1 = this.spaces.find(
-      (s: Space) => s.id === (direction === "down" ? spaceId + 7 : spaceId - 7)
-    );
-    this.availableSpace2 = this.spaces.find(
-      (s: Space) => s.id === (direction === "down" ? spaceId + 9 : spaceId - 9)
-    );
+   
+      this.availableSpace1 = this.spaces.find(
+        (s: Space) =>
+          s.id === (direction === "down" ? spaceId + 7 : spaceId - 7)
+      );
+      if (!this.availableSpace1?.occupyingPiece===false)  {
+      this.availableSpace1 = this.spaces.find(
+        (s: Space) =>
+          s.id === (direction === "down" ? spaceId + 14 : spaceId - 14)
+      );
+    }
+
+   
+      this.availableSpace2 = this.spaces.find(
+        (s: Space) =>
+          s.id === (direction === "down" ? spaceId + 9 : spaceId - 9)
+      );
+      if (!this.availableSpace2?.occupyingPiece===false)  {
+      this.availableSpace2 = this.spaces.find(
+        (s: Space) =>
+          s.id === (direction === "down" ? spaceId + 18 : spaceId - 18)
+      );
+    }
   }
 
   movePiece(
