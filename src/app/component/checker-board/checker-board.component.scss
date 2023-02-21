@@ -87,11 +87,11 @@ body {
 @keyframes selectedBlackEffect {
   from {
     background-color: black;
-    box-shadow: 0 0 30px #e60073;
+    // box-shadow: 0 0 30px #e60073;
   }
   to {
     background-color: #e60073;
-    box-shadow: 0 0 20px #fff;
+    // box-shadow: 0 0 20px #fff;
   }
 }
 
@@ -99,16 +99,16 @@ body {
   border: 3px solid white;
   background-color: #e60073;
   color: white;
-  animation: selectedRedEffect .5s alternate-reverse infinite;
+  animation: selectedRedEffect 0.5s alternate-reverse infinite;
 }
 @keyframes selectedRedEffect {
   from {
     background-color: red;
-    box-shadow: 0 0 30px #e60073;
+    // box-shadow: 0 0 30px #e60073;
   }
   to {
     background-color: yellow;
-    box-shadow: 0 0 20px #fff;
+    // box-shadow: 0 0 20px #fff;
   }
 }
 
@@ -118,19 +118,20 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-  border: 4px solid white;
-  background-color: green;
+  border: 2px solid yellow;
+  // background-color: green;
   height: 40px;
   width: 40px;
-  animation: availableSpaceAnimation 2s alternate-reverse infinite;
+  animation: availableSpaceAnimation 1s alternate-reverse infinite;
 }
 
-@keyframes availableSpaceAnimation{
-
-from{background-color: green; box-shadow: 0 0 80px yellow;}
-to{background-color: yellow; box-shadow: 0 0 40px white;}
-
-
-
+@keyframes availableSpaceAnimation {
+  from {
+    // background-color: green;
+    box-shadow: 40 40 80px white;
+  }
+  to {
+    // background-color: yellow;
+    box-shadow: 0 0 80px yellow;
+  }
 }
-
