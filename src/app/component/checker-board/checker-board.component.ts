@@ -17,7 +17,8 @@ export class CheckerBoardComponent implements OnInit {
   initialBlackPlacementArray: number[] = [
     41, 43, 45, 47, 48, 50, 52, 54, 57, 59, 61, 63,
   ];
-
+player1Name:string='';
+player2Name:string='';
   availableSpace1: Space | undefined;
   availableSpace2: Space | undefined;
   currentPlayerIdTurn: number = 1;

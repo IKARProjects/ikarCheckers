@@ -1,5 +1,26 @@
 <body>
+ 
+   
+ 
+    <input
+      type="text"
+      matInput
+      [(ngModel)]="player1Name"
+      id="player1Name"
+      placeholder="PLAYER 1" />
+   
+    <input
+      type="text"
+      matInput
+      [(ngModel)]="player2Name"
+      id="player2Name"
+      placeholder="PLAYER 2" />
+   
+
+
   <div id="gameContainer">
+    <div id="player2">{{ player2Name ? player2Name : "PLAYER 2" }}</div>
+    <div id="player1">{{ player1Name ? player1Name : "PLAYER 1" }}</div>
     <div></div>
     <div id="boardContainer">
       <div id="board">
@@ -10,11 +31,17 @@
         >
           <div
             *ngIf="!space.occupyingPiece"
-            (click)="moveSelectedPiece(space.occupyingPiece,space.id)"
-            [ngClass]="(availableSpace1?.id===space.id && availableSpace1?.isPlayable)||(availableSpace2?.id===space.id && availableSpace2?.isPlayable)?'availableSpace':''"
+            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
+            [ngClass]="
+              (availableSpace1?.id === space.id &&
+                availableSpace1?.isPlayable) ||
+              (availableSpace2?.id === space.id && availableSpace2?.isPlayable)
+                ? 'availableSpace'
+                : ''
+            "
           ></div>
           <div
-            (click)="moveSelectedPiece(space.occupyingPiece,space.id)"
+            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
             *ngIf="
               space.isPlayable &&
               space.occupyingPiece &&
@@ -27,7 +54,7 @@
           </div>
 
           <div
-            (click)="moveSelectedPiece(space.occupyingPiece,space.id)"
+            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
             *ngIf="
               space.isPlayable &&
               space.occupyingPiece &&

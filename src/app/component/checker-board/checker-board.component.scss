@@ -5,6 +5,29 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+#player1Name{
+  border: brown 2px solid;
+  color: gold;
+  background-color: transparent;
+}
+#player2Name{
+  border: brown 2px solid;
+  color: gold;
+  background-color: transparent;
+}
+#player2{
+  font-size:40px ;
+  position:absolute;
+  top: 10%;
+}
+
+
+#player1{
+  font-size:40px ;
+  position:absolute;
+  bottom: 10%;
+}
 #gameContainer {
   position: relative;
   background-color: burlywood;
