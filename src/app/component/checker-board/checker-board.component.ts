@@ -106,33 +106,11 @@ export class CheckerBoardComponent implements OnInit {
       if (!currentSelcetedPieceSpace) {
         return;
       }
-      // let potentialOccupiedSpace = this.spaces.find(
-      //   (s: Space) => s.id === currentSelcetedPieceSpace.id - 7
-      // );
-      // if (
-      //   potentialOccupiedSpace?.occupyingPiece &&
-      //   potentialOccupiedSpace?.occupyingPiece.playerId ===
-      //     currentSelcetedPieceSpace.occupyingPiece?.playerId
-      // ) {
-      //   return;
-      // }
-      //  potentialOccupiedSpace = this.spaces.find(
-      //   (s: Space) => s.id === currentSelcetedPieceSpace.id - 9
-      // );
-      // if (
-      //   potentialOccupiedSpace?.occupyingPiece &&
-      //   potentialOccupiedSpace?.occupyingPiece.playerId ===
-      //     currentSelcetedPieceSpace.occupyingPiece?.playerId
-      // ) {
-      //   return;
-      // }
+     
 
-
-
-
-      
       this.movePiece(this.availableSpace1!, currentSelcetedPieceSpace, spaceId);
       this.movePiece(this.availableSpace2!, currentSelcetedPieceSpace, spaceId);
+
       this.currentPlayerIdTurn = this.currentPlayerIdTurn === 1 ? 2 : 1;
       this.availableSpace2 = undefined;
       this.availableSpace1 = undefined;
@@ -165,17 +143,24 @@ export class CheckerBoardComponent implements OnInit {
     this.availableSpace1 = this.spaces.find(
       (s: Space) => s.id === (direction === "down" ? spaceId + 7 : spaceId - 7)
     );
-    if (!this.availableSpace1?.occupyingPiece === false) {
+    this.availableSpace2 = this.spaces.find(
+      (s: Space) => s.id === (direction === "down" ? spaceId + 9 : spaceId - 9)
+    );
+
+    if (
+      this.availableSpace1?.occupyingPiece &&
+      this.availableSpace1.occupyingPiece.playerId !== this.currentPlayerIdTurn
+    ) {
       this.availableSpace1 = this.spaces.find(
         (s: Space) =>
           s.id === (direction === "down" ? spaceId + 14 : spaceId - 14)
       );
     }
 
-    this.availableSpace2 = this.spaces.find(
-      (s: Space) => s.id === (direction === "down" ? spaceId + 9 : spaceId - 9)
-    );
-    if (!this.availableSpace2?.occupyingPiece === false) {
+    if (
+      this.availableSpace2?.occupyingPiece &&
+      this.availableSpace2.occupyingPiece.playerId !== this.currentPlayerIdTurn
+    ) {
       this.availableSpace2 = this.spaces.find(
         (s: Space) =>
           s.id === (direction === "down" ? spaceId + 18 : spaceId - 18)
@@ -205,7 +190,9 @@ export class CheckerBoardComponent implements OnInit {
       } else if (availableSpace.id === currentSelcetedPieceSpace.id - 18) {
         this.removeCapturedPiece(currentSelcetedPieceSpace.id - 9);
       }
+      currentSelcetedPieceSpace.occupyingPiece!.isSelected=false
       availableSpace.occupyingPiece = currentSelcetedPieceSpace.occupyingPiece;
+      
     }
   }
 }
