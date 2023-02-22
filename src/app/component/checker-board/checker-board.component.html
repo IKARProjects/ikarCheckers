@@ -1,28 +1,16 @@
 <body>
- 
-   
- 
+  <div id="gameContainer">
     <input
       type="text"
       matInput
       [(ngModel)]="player1Name"
       id="player1Name"
-      placeholder="PLAYER 1" />
-   
-    <input
-      type="text"
-      matInput
-      [(ngModel)]="player2Name"
-      id="player2Name"
-      placeholder="PLAYER 2" />
-   
+      placeholder="PLAYER 1"
+    />
 
-
-  <div id="gameContainer">
-    <div id="player2">{{ player2Name ? player2Name : "PLAYER 2" }}</div>
     <div id="player1">{{ player1Name ? player1Name : "PLAYER 1" }}</div>
     <div></div>
-    <div id="boardContainer">
+    <!-- <div id="boardContainer"> -->
       <div id="board">
         <div
           *ngFor="let space of spaces"
@@ -50,7 +38,7 @@
             class="blackPiece"
             [ngClass]="space.occupyingPiece?.isSelected ? 'selected' : ''"
           >
-            Black
+            
           </div>
 
           <div
@@ -63,11 +51,20 @@
             class="redPiece"
             [ngClass]="space.occupyingPiece?.isSelected ? 'selected' : ''"
           >
-            Red
+            
           </div>
         </div>
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="player2Name"
+          id="player2Name"
+          placeholder="PLAYER 2"
+        />
+
+        <div id="player2">{{ player2Name ? player2Name : "PLAYER 2" }}</div>
       </div>
-    </div>
+    <!-- </div> -->
     <div></div>
   </div>
 </body>
