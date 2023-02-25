@@ -13,7 +13,7 @@ export class CheckerBoardComponent implements OnInit {
   player2Pieces: Piece[] = [];
   blackKingArray: number[] = [0, 2, 4, 6];
   redKingArray: number[] = [57, 59, 61, 63];
-
+  winnerId: number | undefined;
   initialRedPlacementArray: number[] = [
     0, 2, 4, 6, 9, 11, 13, 15, 16, 18, 20, 22,
   ];
@@ -120,10 +120,14 @@ export class CheckerBoardComponent implements OnInit {
 
       this.movePiece(this.availableSpace1!, currentSelcetedPieceSpace, spaceId);
       this.movePiece(this.availableSpace2!, currentSelcetedPieceSpace, spaceId);
+      this.movePiece(this.availableSpace3!, currentSelcetedPieceSpace, spaceId);
+      this.movePiece(this.availableSpace4!, currentSelcetedPieceSpace, spaceId);
 
       this.currentPlayerIdTurn = this.currentPlayerIdTurn === 1 ? 2 : 1;
-      this.availableSpace2 = undefined;
       this.availableSpace1 = undefined;
+      this.availableSpace2 = undefined;
+      this.availableSpace3 = undefined;
+      this.availableSpace4 = undefined;
 
       currentSelcetedPieceSpace.occupyingPiece = undefined;
 
@@ -147,8 +151,9 @@ export class CheckerBoardComponent implements OnInit {
         if (selectedPiece.playerId === 1) {
           this.getAvailableSpace(spaceId, "up");
         }
+      } else {
+        this.getAvailableSpace(spaceId, "", selectedPiece.isKing);
       }
-      else{this.getAvailableSpace(spaceId,"",selectedPiece.isKing)}
     }
   }
 
@@ -189,20 +194,59 @@ export class CheckerBoardComponent implements OnInit {
         );
       }
     } else {
-      
       this.availableSpace1 = this.spaces.find(
-        (s: Space) => s.id === spaceId + 7 
+        (s: Space) => s.id === spaceId + 7
       );
       this.availableSpace2 = this.spaces.find(
-        (s: Space) => s.id === spaceId + 9  
+        (s: Space) => s.id === spaceId + 9
       );
 
       this.availableSpace3 = this.spaces.find(
-        (s: Space) => s.id === spaceId - 7 
+        (s: Space) => s.id === spaceId - 7
       );
       this.availableSpace4 = this.spaces.find(
-        (s: Space) => s.id === spaceId - 9  
+        (s: Space) => s.id === spaceId - 9
       );
+
+      if (
+        this.availableSpace1?.occupyingPiece &&
+        this.availableSpace1.occupyingPiece.playerId !==
+          this.currentPlayerIdTurn
+      ) {
+        this.availableSpace1 = this.spaces.find(
+          (s: Space) => s.id === spaceId + 14
+        );
+      }
+
+      if (
+        this.availableSpace2?.occupyingPiece &&
+        this.availableSpace2.occupyingPiece.playerId !==
+          this.currentPlayerIdTurn
+      ) {
+        this.availableSpace2 = this.spaces.find(
+          (s: Space) => s.id === spaceId + 18
+        );
+      }
+
+      if (
+        this.availableSpace3?.occupyingPiece &&
+        this.availableSpace3.occupyingPiece.playerId !==
+          this.currentPlayerIdTurn
+      ) {
+        this.availableSpace3 = this.spaces.find(
+          (s: Space) => s.id === spaceId - 14
+        );
+      }
+
+      if (
+        this.availableSpace4?.occupyingPiece &&
+        this.availableSpace4.occupyingPiece.playerId !==
+          this.currentPlayerIdTurn
+      ) {
+        this.availableSpace4 = this.spaces.find(
+          (s: Space) => s.id === spaceId - 18
+        );
+      }
     }
   }
 
@@ -241,7 +285,25 @@ export class CheckerBoardComponent implements OnInit {
           availableSpace.occupyingPiece.isKing = true;
         }
       }
-      console.log(availableSpace);
     }
+   this.winnerId= this.checkForWinner();
+
+  }
+
+  checkForWinner(): number | undefined {
+    const player1Pieces = this.spaces.filter(
+      (s: Space) => s.occupyingPiece?.playerId === 1
+    );
+    const player2Pieces = this.spaces.filter(
+      (s: Space) => s.occupyingPiece?.playerId === 2
+    );
+    if (player1Pieces.length === 0) {
+      return 2;
+    }
+    if (player2Pieces.length === 0) {
+      return 1;
+    }
+
+    return undefined;
   }
 }
