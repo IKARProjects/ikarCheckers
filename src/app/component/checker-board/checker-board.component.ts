@@ -11,16 +11,21 @@ export class CheckerBoardComponent implements OnInit {
   spaces: Space[] = [];
   player1Pieces: Piece[] = [];
   player2Pieces: Piece[] = [];
+  blackKingArray: number[] = [0, 2, 4, 6];
+  redKingArray: number[] = [57, 59, 61, 63];
+
   initialRedPlacementArray: number[] = [
     0, 2, 4, 6, 9, 11, 13, 15, 16, 18, 20, 22,
   ];
   initialBlackPlacementArray: number[] = [
     41, 43, 45, 47, 48, 50, 52, 54, 57, 59, 61, 63,
   ];
-player1Name:string='';
-player2Name:string='';
+  player1Name: string = "";
+  player2Name: string = "";
   availableSpace1: Space | undefined;
   availableSpace2: Space | undefined;
+  availableSpace3: Space | undefined;
+  availableSpace4: Space | undefined;
   currentPlayerIdTurn: number = 1;
   constructor() {}
 
@@ -73,12 +78,14 @@ player2Name:string='';
         color: color,
         isSelected: false,
         playerId: playerId,
+        isKing: false,
       });
       this.spaces[initialPlacementArray[p]].occupyingPiece = {
         id: p,
         color: color,
         isSelected: false,
         playerId: playerId,
+        isKing: false,
       };
     }
   }
@@ -90,6 +97,7 @@ player2Name:string='';
       1,
       this.initialBlackPlacementArray
     );
+
     this.addPlayerPiece(
       this.player2Pieces,
       "red",
@@ -97,9 +105,11 @@ player2Name:string='';
       this.initialRedPlacementArray
     );
   }
+
   findSelectedPiece(): Space | undefined {
     return this.spaces.find((s: Space) => s.occupyingPiece?.isSelected);
   }
+
   moveSelectedPiece(selectedPiece: Piece | undefined, spaceId: number) {
     const currentSelcetedPieceSpace = this.findSelectedPiece();
 
@@ -107,7 +117,6 @@ player2Name:string='';
       if (!currentSelcetedPieceSpace) {
         return;
       }
-     
 
       this.movePiece(this.availableSpace1!, currentSelcetedPieceSpace, spaceId);
       this.movePiece(this.availableSpace2!, currentSelcetedPieceSpace, spaceId);
@@ -130,41 +139,69 @@ player2Name:string='';
       });
       selectedPiece.isSelected = true;
 
-      if (selectedPiece.playerId === 2) {
-        this.getAvailableSpace(spaceId, "down");
-      }
+      if (!selectedPiece.isKing) {
+        if (selectedPiece.playerId === 2) {
+          this.getAvailableSpace(spaceId, "down");
+        }
 
-      if (selectedPiece.playerId === 1) {
-        this.getAvailableSpace(spaceId, "up");
+        if (selectedPiece.playerId === 1) {
+          this.getAvailableSpace(spaceId, "up");
+        }
       }
+      else{this.getAvailableSpace(spaceId,"",selectedPiece.isKing)}
     }
   }
 
-  getAvailableSpace(spaceId: number, direction: string) {
-    this.availableSpace1 = this.spaces.find(
-      (s: Space) => s.id === (direction === "down" ? spaceId + 7 : spaceId - 7)
-    );
-    this.availableSpace2 = this.spaces.find(
-      (s: Space) => s.id === (direction === "down" ? spaceId + 9 : spaceId - 9)
-    );
-
-    if (
-      this.availableSpace1?.occupyingPiece &&
-      this.availableSpace1.occupyingPiece.playerId !== this.currentPlayerIdTurn
-    ) {
+  getAvailableSpace(
+    spaceId: number,
+    direction: string,
+    isking: boolean = false
+  ) {
+    if (!isking) {
       this.availableSpace1 = this.spaces.find(
         (s: Space) =>
-          s.id === (direction === "down" ? spaceId + 14 : spaceId - 14)
+          s.id === (direction === "down" ? spaceId + 7 : spaceId - 7)
       );
-    }
-
-    if (
-      this.availableSpace2?.occupyingPiece &&
-      this.availableSpace2.occupyingPiece.playerId !== this.currentPlayerIdTurn
-    ) {
       this.availableSpace2 = this.spaces.find(
         (s: Space) =>
-          s.id === (direction === "down" ? spaceId + 18 : spaceId - 18)
+          s.id === (direction === "down" ? spaceId + 9 : spaceId - 9)
+      );
+
+      if (
+        this.availableSpace1?.occupyingPiece &&
+        this.availableSpace1.occupyingPiece.playerId !==
+          this.currentPlayerIdTurn
+      ) {
+        this.availableSpace1 = this.spaces.find(
+          (s: Space) =>
+            s.id === (direction === "down" ? spaceId + 14 : spaceId - 14)
+        );
+      }
+
+      if (
+        this.availableSpace2?.occupyingPiece &&
+        this.availableSpace2.occupyingPiece.playerId !==
+          this.currentPlayerIdTurn
+      ) {
+        this.availableSpace2 = this.spaces.find(
+          (s: Space) =>
+            s.id === (direction === "down" ? spaceId + 18 : spaceId - 18)
+        );
+      }
+    } else {
+      
+      this.availableSpace1 = this.spaces.find(
+        (s: Space) => s.id === spaceId + 7 
+      );
+      this.availableSpace2 = this.spaces.find(
+        (s: Space) => s.id === spaceId + 9  
+      );
+
+      this.availableSpace3 = this.spaces.find(
+        (s: Space) => s.id === spaceId - 7 
+      );
+      this.availableSpace4 = this.spaces.find(
+        (s: Space) => s.id === spaceId - 9  
       );
     }
   }
@@ -191,9 +228,20 @@ player2Name:string='';
       } else if (availableSpace.id === currentSelcetedPieceSpace.id - 18) {
         this.removeCapturedPiece(currentSelcetedPieceSpace.id - 9);
       }
-      currentSelcetedPieceSpace.occupyingPiece!.isSelected=false
+      currentSelcetedPieceSpace.occupyingPiece!.isSelected = false;
       availableSpace.occupyingPiece = currentSelcetedPieceSpace.occupyingPiece;
-      
+      if (availableSpace.occupyingPiece?.playerId === 1) {
+        const spaceId = availableSpace.id;
+        if (this.blackKingArray.includes(spaceId)) {
+          availableSpace.occupyingPiece.isKing = true;
+        }
+      } else if (availableSpace.occupyingPiece?.playerId === 2) {
+        const spaceId = availableSpace.id;
+        if (this.redKingArray.includes(spaceId)) {
+          availableSpace.occupyingPiece.isKing = true;
+        }
+      }
+      console.log(availableSpace);
     }
   }
 }

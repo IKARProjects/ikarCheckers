@@ -1,6 +1,7 @@
 <body>
   <div id="gameContainer">
     <input
+      style="text-transform: uppercase"
       type="text"
       matInput
       [(ngModel)]="player1Name"
@@ -8,63 +9,72 @@
       placeholder="PLAYER 1"
     />
 
-    <div id="player1">{{ player1Name ? player1Name : "PLAYER 1" }}</div>
+    <div id="player1" style="text-transform: uppercase">
+      {{
+        player1Name
+          ? player1Name + "'s" + " " + "turn"
+          : "PLAYER 1" + "'s" + " " + " " + "turn"
+      }}
+    </div>
     <div></div>
-    <!-- <div id="boardContainer"> -->
-      <div id="board">
+    <div id="board">
+      <div
+        *ngFor="let space of spaces"
+        id="{{ space.id }}"
+        class="{{ space.isPlayable ? 'space' : 'whiteSpace' }}"
+      >
         <div
-          *ngFor="let space of spaces"
-          id="{{ space.id }}"
-          class="{{ space.isPlayable ? 'space' : 'whiteSpace' }}"
-        >
-          <div
-            *ngIf="!space.occupyingPiece"
-            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
-            [ngClass]="
-              (availableSpace1?.id === space.id &&
-                availableSpace1?.isPlayable) ||
-              (availableSpace2?.id === space.id && availableSpace2?.isPlayable)
-                ? 'availableSpace'
-                : ''
-            "
-          ></div>
-          <div
-            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
-            *ngIf="
-              space.isPlayable &&
-              space.occupyingPiece &&
-              space.occupyingPiece.playerId === 1
-            "
-            class="blackPiece"
-            [ngClass]="space.occupyingPiece?.isSelected ? 'selected' : ''"
-          >
-            
-          </div>
+          *ngIf="!space.occupyingPiece"
+          (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
+          [ngClass]="
+            (availableSpace1?.id === space.id && availableSpace1?.isPlayable) ||
+            (availableSpace2?.id === space.id && availableSpace2?.isPlayable) ||
+            (availableSpace3?.id === space.id && availableSpace3?.isPlayable) ||
+            (availableSpace4?.id === space.id && availableSpace4?.isPlayable) 
 
-          <div
-            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
-            *ngIf="
-              space.isPlayable &&
-              space.occupyingPiece &&
-              space.occupyingPiece.playerId === 2
-            "
-            class="redPiece"
-            [ngClass]="space.occupyingPiece?.isSelected ? 'selected' : ''"
-          >
-            
-          </div>
-        </div>
-        <input
-          type="text"
-          matInput
-          [(ngModel)]="player2Name"
-          id="player2Name"
-          placeholder="PLAYER 2"
-        />
+              ? 'availableSpace'
+              : ''
+          "
+        ></div>
+        <div
+          (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
+          *ngIf="
+            space.isPlayable &&
+            space.occupyingPiece &&
+            space.occupyingPiece.playerId === 1
+          "
+          class="blackPiece"
+          [ngClass]="[space.occupyingPiece?.isSelected ? 'selected' : '',space.occupyingPiece?.isKing?'blackKingPiece':'']"
+        >{{space.occupyingPiece?.isKing?"K":""}}</div>
 
-        <div id="player2">{{ player2Name ? player2Name : "PLAYER 2" }}</div>
+        <div
+          (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
+          *ngIf="
+            space.isPlayable &&
+            space.occupyingPiece &&
+            space.occupyingPiece.playerId === 2
+          "
+          class="redPiece"
+          [ngClass]="[space.occupyingPiece?.isSelected ? 'selected' : '',space.occupyingPiece?.isKing?'redKingPiece':'']"
+        >{{space.occupyingPiece?.isKing?"K":""}}</div>
       </div>
-    <!-- </div> -->
+      <input
+        style="text-transform: uppercase"
+        type="text"
+        matInput
+        [(ngModel)]="player2Name"
+        id="player2Name"
+        placeholder="PLAYER 2"
+      />
+
+      <div style="text-transform: uppercase" id="player2">
+        {{
+          player2Name
+            ? player2Name + "'s" + " " + "turn"
+            : "PLAYER 2" + "'s" + " " + " " + "turn"
+        }}
+      </div>
+    </div>
     <div></div>
   </div>
 </body>
