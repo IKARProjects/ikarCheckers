@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Space } from "src/models/space.model";
 import { Piece } from "src/models/piece.model";
+import { MatDialog } from "@angular/material/dialog";
+import { WinnerDialogComponent } from "src/app/winner-dialog/winner-dialog.component";
 
 @Component({
   selector: "app-checker-board",
@@ -25,7 +27,6 @@ export class CheckerBoardComponent implements OnInit {
   player1Losses: number = 0;
   player2Wins: number = 0;
   player2Losses: number = 0;
-
   player1Name: string = "";
   player2Name: string = "";
   availableSpace1: Space | undefined;
@@ -33,9 +34,15 @@ export class CheckerBoardComponent implements OnInit {
   availableSpace3: Space | undefined;
   availableSpace4: Space | undefined;
   currentPlayerIdTurn: number = 1;
-  constructor() {}
+  constructor(private dialog:MatDialog
+    ) {}
 
   ngOnInit(): void {
+
+    this.dialog.open(WinnerDialogComponent,{
+      data:'ADam'
+    })
+
     this.addRowPairs(0);
     this.addRowPairs(16);
     this.addRowPairs(32);
@@ -293,13 +300,19 @@ export class CheckerBoardComponent implements OnInit {
       }
       this.winnerId = this.checkForWinner();
       if(this.winnerId===1){
+
         this.player1Wins++;
         this.player2Losses++;
+        this.dialog.open(WinnerDialogComponent,{
+          data:this.player1Name
+        })      
       }
       if(this.winnerId===2){
         this.player2Wins++;
         this.player1Losses++;
-      }
+        this.dialog.open(WinnerDialogComponent,{
+          data:this.player2Name
+        })      }
     }
    
   }
