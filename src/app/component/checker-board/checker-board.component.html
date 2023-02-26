@@ -8,9 +8,27 @@
       id="player1Name"
       placeholder="PLAYER 1"
     />
-
-    <div id="player1" style="text-transform: uppercase"
-    *ngIf="currentPlayerIdTurn===1"
+   
+    <div>
+        <div id="player2Score">
+        <label for="player2Wins">Wins</label>
+        <div class="player2Wins">{{player2Wins}}</div>
+        <label for="player2Lose">Lose</label>
+        <div class="player2Lose">{{player2Losses}}</div>
+      </div>
+       <div id="player1Score">
+      <label for="player1Wins">Wins</label>
+      <div class="player1Wins">{{player1Wins}}</div>
+      <label for="player1Lose">Lose</label>
+      <div class="player1Lose">{{player1Losses}}</div>
+    </div>
+   
+    </div>
+    <div>
+    <div
+      id="player1"
+      style="text-transform: uppercase"
+      *ngIf="currentPlayerIdTurn === 1"
     >
       {{
         player1Name
@@ -32,8 +50,7 @@
             (availableSpace1?.id === space.id && availableSpace1?.isPlayable) ||
             (availableSpace2?.id === space.id && availableSpace2?.isPlayable) ||
             (availableSpace3?.id === space.id && availableSpace3?.isPlayable) ||
-            (availableSpace4?.id === space.id && availableSpace4?.isPlayable) 
-
+            (availableSpace4?.id === space.id && availableSpace4?.isPlayable)
               ? 'availableSpace'
               : ''
           "
@@ -46,8 +63,13 @@
             space.occupyingPiece.playerId === 1
           "
           class="blackPiece"
-          [ngClass]="[space.occupyingPiece?.isSelected ? 'selected' : '',space.occupyingPiece?.isKing?'blackKingPiece':'']"
-        >{{space.occupyingPiece?.isKing?"K":""}}</div>
+          [ngClass]="[
+            space.occupyingPiece?.isSelected ? 'selected' : '',
+            space.occupyingPiece?.isKing ? 'blackKingPiece' : ''
+          ]"
+        >
+          {{ space.occupyingPiece?.isKing ? "K" : "" }}
+        </div>
 
         <div
           (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
@@ -57,8 +79,13 @@
             space.occupyingPiece.playerId === 2
           "
           class="redPiece"
-          [ngClass]="[space.occupyingPiece?.isSelected ? 'selected' : '',space.occupyingPiece?.isKing?'redKingPiece':'']"
-        >{{space.occupyingPiece?.isKing?"K":""}}</div>
+          [ngClass]="[
+            space.occupyingPiece?.isSelected ? 'selected' : '',
+            space.occupyingPiece?.isKing ? 'redKingPiece' : ''
+          ]"
+        >
+          {{ space.occupyingPiece?.isKing ? "K" : "" }}
+        </div>
       </div>
       <input
         style="text-transform: uppercase"
@@ -68,9 +95,12 @@
         id="player2Name"
         placeholder="PLAYER 2"
       />
+     
 
-      <div style="text-transform: uppercase" id="player2"
-      *ngIf="currentPlayerIdTurn===2"
+      <div
+        style="text-transform: uppercase"
+        id="player2"
+        *ngIf="currentPlayerIdTurn === 2"
       >
         {{
           player2Name
@@ -79,6 +109,6 @@
         }}
       </div>
     </div>
-    <div></div>
+    </div>
   </div>
 </body>

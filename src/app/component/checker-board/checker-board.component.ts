@@ -20,6 +20,12 @@ export class CheckerBoardComponent implements OnInit {
   initialBlackPlacementArray: number[] = [
     41, 43, 45, 47, 48, 50, 52, 54, 57, 59, 61, 63,
   ];
+
+  player1Wins: number = 0;
+  player1Losses: number = 0;
+  player2Wins: number = 0;
+  player2Losses: number = 0;
+
   player1Name: string = "";
   player2Name: string = "";
   availableSpace1: Space | undefined;
@@ -285,9 +291,17 @@ export class CheckerBoardComponent implements OnInit {
           availableSpace.occupyingPiece.isKing = true;
         }
       }
+      this.winnerId = this.checkForWinner();
+      if(this.winnerId===1){
+        this.player1Wins++;
+        this.player2Losses++;
+      }
+      if(this.winnerId===2){
+        this.player2Wins++;
+        this.player1Losses++;
+      }
     }
-   this.winnerId= this.checkForWinner();
-
+   
   }
 
   checkForWinner(): number | undefined {
@@ -306,4 +320,7 @@ export class CheckerBoardComponent implements OnInit {
 
     return undefined;
   }
+
+
+
 }

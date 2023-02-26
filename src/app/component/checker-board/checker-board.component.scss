@@ -31,12 +31,23 @@ body {
   font-weight: 500;
   top: 0%;
 }
+#player2Score{
+  background-color: red;
+  top:0%;
+
+}
 
 #player1 {
   color: black;
   font-size: 30px;
   font-weight: 500;
   position: absolute;
+  bottom: 0%;
+}
+
+
+#player1Score{
+  background-color: gray;
   bottom: 0%;
 }
 #gameContainer {
