@@ -17,5 +17,7 @@ export class WinnerDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+
+    
   }
 }

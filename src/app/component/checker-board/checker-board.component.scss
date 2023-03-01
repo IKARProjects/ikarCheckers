@@ -7,23 +7,38 @@ body {
   justify-content: center;
 }
 
-#player1Name {
+#player1 {
+  color: black;
+  font-size: 30px;
+  font-weight: 500;
   position: absolute;
+  bottom: 0%;
+  left: 35%;
+}
+
+.player1ScoreBoard{
+background-color: black;
+}
+#player1Name {
+  font-size: larger;
+  margin-left: 60px;
   border: none;
   background-color: goldenrod;
   color: gold;
   background-color: transparent;
-  bottom: 0%;
-  left: 0%;
 }
-#player2Name {
-  position: absolute;
-  border: none;
-  color: gold;
+
+#player1Score {
+  display: flex;
+  margin-left: 60px;
   background-color: transparent;
-  top: 0%;
-  left: 0%;
+  bottom: 0%;
 }
+
+.playerWins {
+  margin-right: 20px;
+}
+
 #player2 {
   color: maroon;
   font-size: 30px;
@@ -31,24 +46,22 @@ body {
   font-weight: 500;
   top: 0%;
 }
-#player2Score{
-  background-color: red;
-  top:0%;
-
+.player2ScoreBoard{
+  background-color: maroon;
+  }
+#player2Name {
+  font-size: larger;
+  margin-left: 80px;
+  border: none;
+  color: gold;
+  background-color: transparent;
 }
 
-#player1 {
-  color: black;
-  font-size: 30px;
-  font-weight: 500;
-  position: absolute;
-  bottom: 0%;
-}
-
-
-#player1Score{
-  background-color: gray;
-  bottom: 0%;
+#player2Score {
+  display: flex;
+  margin-left: 80px;
+  background-color: transparent;
+  top: 0%;
 }
 #gameContainer {
   position: relative;
@@ -127,10 +140,9 @@ body {
   width: 30px;
   border-radius: 50%;
   box-shadow: 0px 0px 7px 7px yellow;
-
 }
 .redKingPiece {
-  font-size:small;
+  font-size: small;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,7 +153,6 @@ body {
   width: 30px;
   border-radius: 50%;
   box-shadow: 0px 0px 7px 7px yellow;
-
 }
 
 .blackPiece.selected {

@@ -2,19 +2,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 250px;
-  width: 250px;
+  height: 150px;
+  width: 270px;
   background-image: url(..//../assets/images/woodgrain5.jpg);
   color: gold;
   border: solid 3px gold;
 }
+.winText{
+position: relative;
+left: 20%;
+}
 
 .button {
-color: gold;
-height: 60px;
-width: 100px;
-background-color: brown;
-border: solid 2px gold;
-color: gold;
-
+  position: relative;
+  top: 30%;
+  right: 20%;
+  color: gold;
+  height: 40px;
+  width: 100px;
+  background-color: transparent;
+  color: gold;
 }

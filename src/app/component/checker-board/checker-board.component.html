@@ -1,5 +1,5 @@
 <body>
-  <div id="gameContainer">
+  <div class="player1ScoreBoard">
     <input
       style="text-transform: uppercase"
       type="text"
@@ -8,107 +8,117 @@
       id="player1Name"
       placeholder="PLAYER 1"
     />
-   
-    <div>
-        <div id="player2Score">
-        <label for="player2Wins">Wins</label>
-        <div class="player2Wins">{{player2Wins}}</div>
-        <label for="player2Lose">Lose</label>
-        <div class="player2Lose">{{player2Losses}}</div>
+    <div id="player1Score">
+      <div class="playerWins">
+        <label for="player1Wins">Wins</label>
+        <div >{{ player1Wins }}</div>
       </div>
-       <div id="player1Score">
-      <label for="player1Wins">Wins</label>
-      <div class="player1Wins">{{player1Wins}}</div>
-      <label for="player1Lose">Lose</label>
-      <div class="player1Lose">{{player1Losses}}</div>
-    </div>
-   
-    </div>
-    <div>
-    <div
-      id="player1"
-      style="text-transform: uppercase"
-      *ngIf="currentPlayerIdTurn === 1"
-    >
-      {{
-        player1Name
-          ? player1Name + "'s" + " " + "turn"
-          : "PLAYER 1" + "'s" + " " + " " + "turn"
-      }}
-    </div>
-    <div></div>
-    <div id="board">
-      <div
-        *ngFor="let space of spaces"
-        id="{{ space.id }}"
-        class="{{ space.isPlayable ? 'space' : 'whiteSpace' }}"
-      >
-        <div
-          *ngIf="!space.occupyingPiece"
-          (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
-          [ngClass]="
-            (availableSpace1?.id === space.id && availableSpace1?.isPlayable) ||
-            (availableSpace2?.id === space.id && availableSpace2?.isPlayable) ||
-            (availableSpace3?.id === space.id && availableSpace3?.isPlayable) ||
-            (availableSpace4?.id === space.id && availableSpace4?.isPlayable)
-              ? 'availableSpace'
-              : ''
-          "
-        ></div>
-        <div
-          (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
-          *ngIf="
-            space.isPlayable &&
-            space.occupyingPiece &&
-            space.occupyingPiece.playerId === 1
-          "
-          class="blackPiece"
-          [ngClass]="[
-            space.occupyingPiece?.isSelected ? 'selected' : '',
-            space.occupyingPiece?.isKing ? 'blackKingPiece' : ''
-          ]"
-        >
-          {{ space.occupyingPiece?.isKing ? "K" : "" }}
-        </div>
-
-        <div
-          (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
-          *ngIf="
-            space.isPlayable &&
-            space.occupyingPiece &&
-            space.occupyingPiece.playerId === 2
-          "
-          class="redPiece"
-          [ngClass]="[
-            space.occupyingPiece?.isSelected ? 'selected' : '',
-            space.occupyingPiece?.isKing ? 'redKingPiece' : ''
-          ]"
-        >
-          {{ space.occupyingPiece?.isKing ? "K" : "" }}
-        </div>
+      <div class="playerLose">
+        <label for="player1Lose">Lose</label>
+        <div >{{ player1Losses }}</div>
       </div>
-      <input
-        style="text-transform: uppercase"
-        type="text"
-        matInput
-        [(ngModel)]="player2Name"
-        id="player2Name"
-        placeholder="PLAYER 2"
-      />
-     
-
+    </div>
+  </div>
+  <div id="gameContainer">
+    <div>
       <div
+        id="player1"
         style="text-transform: uppercase"
-        id="player2"
-        *ngIf="currentPlayerIdTurn === 2"
+        *ngIf="currentPlayerIdTurn === 1"
       >
         {{
-          player2Name
-            ? player2Name + "'s" + " " + "turn"
-            : "PLAYER 2" + "'s" + " " + " " + "turn"
+          player1Name
+            ? player1Name + "'s" + " " + "turn"
+            : "PLAYER 1" + "'s" + " " + " " + "turn"
         }}
       </div>
+      <div></div>
+      <div id="board">
+        <div
+          *ngFor="let space of spaces"
+          id="{{ space.id }}"
+          class="{{ space.isPlayable ? 'space' : 'whiteSpace' }}"
+        >
+          <div
+            *ngIf="!space.occupyingPiece"
+            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
+            [ngClass]="
+              (availableSpace1?.id === space.id &&
+                availableSpace1?.isPlayable) ||
+              (availableSpace2?.id === space.id &&
+                availableSpace2?.isPlayable) ||
+              (availableSpace3?.id === space.id &&
+                availableSpace3?.isPlayable) ||
+              (availableSpace4?.id === space.id && availableSpace4?.isPlayable)
+                ? 'availableSpace'
+                : ''
+            "
+          ></div>
+          <div
+            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
+            *ngIf="
+              space.isPlayable &&
+              space.occupyingPiece &&
+              space.occupyingPiece.playerId === 1
+            "
+            class="blackPiece"
+            [ngClass]="[
+              space.occupyingPiece?.isSelected ? 'selected' : '',
+              space.occupyingPiece?.isKing ? 'blackKingPiece' : ''
+            ]"
+          >
+            {{ space.occupyingPiece?.isKing ? "K" : "" }}
+          </div>
+
+          <div
+            (click)="moveSelectedPiece(space.occupyingPiece, space.id)"
+            *ngIf="
+              space.isPlayable &&
+              space.occupyingPiece &&
+              space.occupyingPiece.playerId === 2
+            "
+            class="redPiece"
+            [ngClass]="[
+              space.occupyingPiece?.isSelected ? 'selected' : '',
+              space.occupyingPiece?.isKing ? 'redKingPiece' : ''
+            ]"
+          >
+            {{ space.occupyingPiece?.isKing ? "K" : "" }}
+          </div>
+        </div>
+
+        <div
+          style="text-transform: uppercase"
+          id="player2"
+          *ngIf="currentPlayerIdTurn === 2"
+        >
+          {{
+            player2Name
+              ? player2Name + "'s" + " " + "turn"
+              : "PLAYER 2" + "'s" + " " + " " + "turn"
+          }}
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="player2ScoreBoard">
+    <input
+      style="text-transform: uppercase"
+      type="text"
+      matInput
+      [(ngModel)]="player2Name"
+      id="player2Name"
+      placeholder="PLAYER 2"
+    />
+    <div id="player2Score">
+      <div class="playerWins">
+        <label for="player2Wins">Wins</label>
+        <div>{{ player2Wins }}</div>
+      </div>
+      <div class="player2Lose">
+        <label for="playerLose">Lose</label>
+        <div >{{ player2Losses }}</div>
+      </div>
     </div>
   </div>
 </body>

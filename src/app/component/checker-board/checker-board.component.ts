@@ -34,15 +34,9 @@ export class CheckerBoardComponent implements OnInit {
   availableSpace3: Space | undefined;
   availableSpace4: Space | undefined;
   currentPlayerIdTurn: number = 1;
-  constructor(private dialog:MatDialog
-    ) {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-
-    this.dialog.open(WinnerDialogComponent,{
-      data:'ADam'
-    })
-
     this.addRowPairs(0);
     this.addRowPairs(16);
     this.addRowPairs(32);
@@ -299,22 +293,24 @@ export class CheckerBoardComponent implements OnInit {
         }
       }
       this.winnerId = this.checkForWinner();
-      if(this.winnerId===1){
-
+      if (this.winnerId === 1) {
         this.player1Wins++;
         this.player2Losses++;
-        this.dialog.open(WinnerDialogComponent,{
-          data:this.player1Name
-        })      
+        this.dialog.open(WinnerDialogComponent, {
+          data: this.player1Name,
+        });
       }
-      if(this.winnerId===2){
+      if (this.winnerId === 2) {
         this.player2Wins++;
         this.player1Losses++;
-        this.dialog.open(WinnerDialogComponent,{
-          data:this.player2Name
-        })      }
+        const dialogRef = this.dialog.open(WinnerDialogComponent, {
+          data: this.player2Name,
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log("closed");
+        });
+      }
     }
-   
   }
 
   checkForWinner(): number | undefined {
@@ -333,7 +329,4 @@ export class CheckerBoardComponent implements OnInit {
 
     return undefined;
   }
-
-
-
 }
