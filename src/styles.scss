@@ -10,3 +10,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-dialog-container {
     padding: 0!important;
 }
+
+#player1Name.mat-input-element::placeholder{
+    color: maroon;
+ }
+
+ #player2Name.mat-input-element::placeholder{
+    color: black;
+ }

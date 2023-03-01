@@ -11,7 +11,7 @@ import { WinnerDialogComponent } from "src/app/winner-dialog/winner-dialog.compo
 })
 export class CheckerBoardComponent implements OnInit {
   spaces: Space[] = [];
-  player1Pieces: Piece[] = [];
+  player1Pieces = [];
   player2Pieces: Piece[] = [];
   blackKingArray: number[] = [0, 2, 4, 6];
   redKingArray: number[] = [57, 59, 61, 63];
@@ -296,17 +296,22 @@ export class CheckerBoardComponent implements OnInit {
       if (this.winnerId === 1) {
         this.player1Wins++;
         this.player2Losses++;
-        this.dialog.open(WinnerDialogComponent, {
-          data: this.player1Name,
+        const dialogRef = this.dialog.open(WinnerDialogComponent, {
+          data: this.player1Name?this.player1Name:"Player 1"
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+          this.reset();
+          console.log("closed");
         });
       }
       if (this.winnerId === 2) {
         this.player2Wins++;
         this.player1Losses++;
         const dialogRef = this.dialog.open(WinnerDialogComponent, {
-          data: this.player2Name,
+          data: this.player2Name?this.player2Name:"Player 2"
         });
         dialogRef.afterClosed().subscribe((result) => {
+          this.reset();
           console.log("closed");
         });
       }
@@ -328,5 +333,18 @@ export class CheckerBoardComponent implements OnInit {
     }
 
     return undefined;
+  }
+
+  reset() {
+    this.player1Pieces = [];
+    this.player2Pieces = [];
+    this.spaces = [];
+    this.winnerId = undefined;
+    this.currentPlayerIdTurn = 1;
+    this.addRowPairs(0);
+    this.addRowPairs(16);
+    this.addRowPairs(32);
+    this.addRowPairs(48);
+    this.addPlayerPieces();
   }
 }
