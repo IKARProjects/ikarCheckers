@@ -8,7 +8,7 @@ body {
 }
 
 #player1 {
-  color: black;
+  color: gold;
   font-size: 30px;
   font-weight: 500;
   position: absolute;
@@ -17,9 +17,10 @@ body {
 }
 
 .player1ScoreBoard {
-  color: maroon;
-  background-color: black;
-}
+  border: solid 3px gold;
+  width: 200px;
+  color: gold;
+background-image: url(../../../assets/images/woodgrain5.jpg);}
 #player1Name {
   font-size: larger;
   margin-left: 60px;
@@ -40,27 +41,32 @@ body {
   margin-right: 20px;
 }
 
+
+
 #player2 {
-  color: maroon;
+  color: gold;
   font-size: 30px;
   position: absolute;
   font-weight: 500;
   top: 0%;
 }
 .player2ScoreBoard {
-  background-color: maroon;
-}
+  border: solid 3px gold;
+ 
+  width: 200px;
+background-image: url(../../../assets/images/woodgrain5.jpg);}
 #player2Name {
   font-size: larger;
-  margin-left: 80px;
+  margin-left: 50px;
   border: none;
   color: gold;
   background-color: transparent;
 }
 
 #player2Score {
+  color:gold;
   display: flex;
-  margin-left: 80px;
+  margin-left: 50px;
   background-color: transparent;
   top: 0%;
 }
