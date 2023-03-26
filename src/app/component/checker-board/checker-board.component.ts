@@ -129,8 +129,8 @@ export class CheckerBoardComponent implements OnInit {
       this.movePiece(this.availableSpace2!, currentSelcetedPieceSpace, spaceId);
       this.movePiece(this.availableSpace3!, currentSelcetedPieceSpace, spaceId);
       this.movePiece(this.availableSpace4!, currentSelcetedPieceSpace, spaceId);
-      this.playSound( "thump_005-82583.mp3");
-    
+      this.playSound("thump_005-82583.mp3");
+
       this.currentPlayerIdTurn = this.currentPlayerIdTurn === 1 ? 2 : 1;
       this.availableSpace1 = undefined;
       this.availableSpace2 = undefined;
@@ -165,12 +165,9 @@ export class CheckerBoardComponent implements OnInit {
     }
   }
 
-
-  
-
-  private playSound(sound:string) {
+  private playSound(sound: string) {
     let audio = new Audio();
-    audio.src = "../../../assets/sounds/"+sound;
+    audio.src = "../../../assets/sounds/" + sound;
     audio.load();
     audio.play();
   }
@@ -295,13 +292,13 @@ export class CheckerBoardComponent implements OnInit {
       if (availableSpace.occupyingPiece?.playerId === 1) {
         const spaceId = availableSpace.id;
         if (this.blackKingArray.includes(spaceId)) {
-          this.playSound("tada-fanfare-a-6313.mp3")
+          this.playSound("tada-fanfare-a-6313.mp3");
           availableSpace.occupyingPiece.isKing = true;
         }
       } else if (availableSpace.occupyingPiece?.playerId === 2) {
         const spaceId = availableSpace.id;
         if (this.redKingArray.includes(spaceId)) {
-          this.playSound("tada-fanfare-a-6313.mp3")
+          this.playSound("tada-fanfare-a-6313.mp3");
           availableSpace.occupyingPiece.isKing = true;
         }
       }
@@ -310,7 +307,7 @@ export class CheckerBoardComponent implements OnInit {
         this.player1Wins++;
         this.player2Losses++;
         const dialogRef = this.dialog.open(WinnerDialogComponent, {
-          data: this.player1Name?this.player1Name:"Player 1"
+          data: this.player1Name ? this.player1Name : "Player 1",
         });
         dialogRef.afterClosed().subscribe((result) => {
           this.reset();
@@ -321,7 +318,7 @@ export class CheckerBoardComponent implements OnInit {
         this.player2Wins++;
         this.player1Losses++;
         const dialogRef = this.dialog.open(WinnerDialogComponent, {
-          data: this.player2Name?this.player2Name:"Player 2"
+          data: this.player2Name ? this.player2Name : "Player 2",
         });
         dialogRef.afterClosed().subscribe((result) => {
           this.reset();
@@ -360,11 +357,4 @@ export class CheckerBoardComponent implements OnInit {
     this.addRowPairs(48);
     this.addPlayerPieces();
   }
-
-// var moveSelectedPieceSound;
-
-
-// moveSelectedPieceSFX(){
-// moveSelectedPieceSound=("")
-// }
 }
